@@ -45,10 +45,10 @@
         </div>
         <div>
           <a class="navbar-brand brand-logo" href="index.html">
-            <img src="images/logo.jpg" alt="logo" />
+            <img src="images/logo.png" alt="logo" />
           </a>
           <a class="navbar-brand brand-logo-mini" href="index.html">
-            <img src="images/logo.jpg" alt="logo" />
+            <img src="images/logo.png" alt="logo" />
           </a>
         </div>
       </div>
@@ -83,7 +83,7 @@
     <!-- partial -->
     <div class="container-fluid page-body-wrapper">
       <!-- partial:partials/_settings-panel.html -->
-      <div class="theme-setting-wrapper">
+      <!-- <div class="theme-setting-wrapper">
         <div id="settings-trigger"><i class="ti-settings"></i></div>
         <div id="theme-settings" class="settings-panel">
           <i class="settings-close ti-close"></i>
@@ -188,7 +188,6 @@
               <p class="text-gray mb-0 ">Call Sarah Graves</p>
             </div>
           </div>
-          <!-- To do section tab ends -->
           <div class="tab-pane fade" id="chats-section" role="tabpanel" aria-labelledby="chats-section">
             <div class="d-flex align-items-center justify-content-between border-bottom">
               <p class="settings-heading border-top-0 mb-3 pl-3 pt-0 border-bottom-0 pb-0">Friends</p>
@@ -248,9 +247,8 @@
               </li>
             </ul>
           </div>
-          <!-- chat tab ends -->
         </div>
-      </div>
+      </div> -->
       <!-- partial -->
       <!-- partial:partials/_sidebar.html -->
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
@@ -327,20 +325,22 @@
 
                                         if(mysqli_num_rows($query_run) != 0)
                                         {
+                                          ?>
+                                          <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Symbol</th>
+                                                <th>Quantity</th>
+                                                <th>Avg Buy Price</th>
+                                                <th>Year</th>
+                                                <th>Action</th>
+                                              </tr>
+                                          </thead>
+                                          <tbody>
+                                          <?php
                                             foreach($query_run as $items)
                                             {
-                                                ?>
-                                                <thead>
-                                                  <tr>
-                                                      <th>Name</th>
-                                                      <th>Symbol</th>
-                                                      <th>Quantity</th>
-                                                      <th>Avg Buy Price</th>
-                                                      <th>Year</th>
-                                                      <th>Action</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
+                                              ?>
                                                 <form action="new.php" method="post">
                                                     <tr>
                                                         <td ><input type="text" id="name1" name="name1" value="<?= $items['NAME_OF_COMPANY']; ?>" style="border:0px" readonly></td>
@@ -357,20 +357,22 @@
                                         }
                                         if(mysqli_num_rows($query_run1) != 0)
                                         {
-                                            foreach($query_run1 as $items)
+                                          ?>
+                                          <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>FD Rate</th>
+                                                <th>Tenure</th>
+                                                <th>Amount</th>
+                                                <th>Year</th> 
+                                                <th>Action</th>
+                                              </tr>
+                                          </thead>
+                                          <tbody>
+                                            <?php
+                                          foreach($query_run1 as $items)
                                             {
-                                                ?>
-                                                <thead>
-                                                  <tr>
-                                                      <th>Name</th>
-                                                      <th>FD Rate</th>
-                                                      <th>Tenure</th>
-                                                      <th>Amount</th>
-                                                      <th>Year</th> 
-                                                      <th>Action</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
+                                              ?>
                                                 <form action="new.php" method="post">
                                                     <tr>
                                                         <td ><input type="text" id="name12" name="name12" value="<?= $items['BANK']; ?>" style="border:0px" readonly></td>
@@ -387,9 +389,7 @@
                                         }
                                         if(mysqli_num_rows($query_run2) != 0)
                                         {
-                                            foreach($query_run2 as $items)
-                                            {
-                                                ?>
+                                          ?>
                                                 <thead>
                                                   <tr>
                                                       <th>Name</th>
@@ -401,6 +401,10 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
+                                                  <?php
+                                            foreach($query_run2 as $items)
+                                            {
+                                                ?>
                                                 <form action="new.php" method="post">
                                                     <tr>
                                                         <td ><input type="text" id="name13" name="name13" value="<?= $items['name']; ?>" style="border:0px" readonly></td>
@@ -415,7 +419,7 @@
                                                 <?php
                                             }
                                         }
-                                        else
+                                        if(mysqli_num_rows($query_run) == 0 && mysqli_num_rows($query_run1) == 0 && mysqli_num_rows($query_run2) == 0)
                                         {
                                             ?>
                                                 <tr>

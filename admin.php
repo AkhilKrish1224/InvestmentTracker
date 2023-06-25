@@ -45,10 +45,10 @@
         </div>
         <div>
           <a class="navbar-brand brand-logo" href="test.html">
-            <img src="images/logo.jpg" alt="logo" />
+            <img src="images/logo.png" alt="logo" />
           </a>
           <a class="navbar-brand brand-logo-mini" href="test.html">
-            <img src="images/logo.jpg" alt="logo" />
+            <img src="images/logo.png" alt="logo" />
           </a>
         </div>
       </div>

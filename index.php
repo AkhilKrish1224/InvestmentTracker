@@ -45,10 +45,10 @@
         </div>
         <div>
           <a class="navbar-brand brand-logo" href="index.html">
-            <img src="images/logo.jpg" alt="logo" />
+            <img src="images/logo.png" alt="logo" />
           </a>
           <a class="navbar-brand brand-logo-mini" href="index.html">
-            <img src="images/logo.jpg" alt="logo" />
+            <img src="images/logo.png" alt="logo" />
           </a>
         </div>
       </div>
@@ -83,7 +83,7 @@
     <!-- partial -->
     <div class="container-fluid page-body-wrapper">
       <!-- partial:partials/_settings-panel.html -->
-      <div class="theme-setting-wrapper">
+      <!-- <div class="theme-setting-wrapper">
         <div id="settings-trigger"><i class="ti-settings"></i></div>
         <div id="theme-settings" class="settings-panel">
           <i class="settings-close ti-close"></i>
@@ -100,8 +100,8 @@
             <div class="tiles default"></div>
           </div>
         </div>
-      </div>
-      <div id="right-sidebar" class="settings-panel">
+      </div> -->
+      <!-- <div id="right-sidebar" class="settings-panel">
         <i class="settings-close ti-close"></i>
         <ul class="nav nav-tabs border-top" id="setting-panel" role="tablist">
           <li class="nav-item">
@@ -188,7 +188,6 @@
               <p class="text-gray mb-0 ">Call Sarah Graves</p>
             </div>
           </div>
-          <!-- To do section tab ends -->
           <div class="tab-pane fade" id="chats-section" role="tabpanel" aria-labelledby="chats-section">
             <div class="d-flex align-items-center justify-content-between border-bottom">
               <p class="settings-heading border-top-0 mb-3 pl-3 pt-0 border-bottom-0 pb-0">Friends</p>
@@ -248,9 +247,8 @@
               </li>
             </ul>
           </div>
-          <!-- chat tab ends -->
         </div>
-      </div>
+      </div> -->
       <!-- partial -->
       <!-- partial:partials/_sidebar.html -->
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
@@ -454,7 +452,7 @@
                       </div>
                     </div> 
                     <div class="row">
-                      <div class="col-lg-6 d-flex flex-row">
+                      <div class="col-lg-6 d-flex flex-row" style="position: relative;top: -40px;">
                         <div class="row flex-grow">
                           <div class="col-12 grid-margin stretch-card">
                             <div class="card card-rounded">
@@ -1200,10 +1198,10 @@
   
         // These labels appear in the legend and in the tooltips when hovering different arcs
         labels: [
-          'Mutual Fund',
+          'Other',
           'Stock',
           'FD',
-          'Other',
+          'Mutual Fund',
         ]
       };
       var doughnutPieOptions = {
