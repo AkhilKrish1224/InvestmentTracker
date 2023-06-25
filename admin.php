@@ -83,7 +83,7 @@
     <!-- partial -->
     <div class="container-fluid page-body-wrapper">
       
-      <div class="theme-setting-wrapper">
+      <!-- <div class="theme-setting-wrapper">
         <div id="settings-trigger"><i class="ti-settings"></i></div>
         <div id="theme-settings" class="settings-panel">
           <i class="settings-close ti-close"></i>
@@ -248,8 +248,8 @@
               </li>
             </ul>
           </div>
-        </div> -->
-      </div>
+        </div>
+      </div> -->
       <!-- partial -->
       <!-- partial:partials/_sidebar.html -->
       <nav class="sidebar sidebar-offcanvas" id="sidebar">

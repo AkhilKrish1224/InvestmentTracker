@@ -65,7 +65,7 @@
                   </button>
                 </div> -->
                 <div class="text-center mt-4 fw-light">
-                  Already have an account? <a href="login.html" class="text-primary">Sign In</a>
+                  Already have an account? <a href="login.php" class="text-primary">Sign In</a>
                 </div>
               </form>
             </div>
