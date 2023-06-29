@@ -10,7 +10,7 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Investment </title>
+  <title>GoGain</title>
   <!-- plugins:css -->
   <link rel="stylesheet" href="vendors/feather/feather.css">
   <link rel="stylesheet" href="vendors/mdi/css/materialdesignicons.min.css">
@@ -44,10 +44,10 @@
           </button>
         </div>
         <div>
-          <a class="navbar-brand brand-logo" href="index.html">
+          <a class="navbar-brand brand-logo" href="index.php">
             <img src="images/logo.png" alt="logo" />
           </a>
-          <a class="navbar-brand brand-logo-mini" href="index.html">
+          <a class="navbar-brand brand-logo-mini" href="index.php">
             <img src="images/logo.png" alt="logo" />
           </a>
         </div>
@@ -60,7 +60,29 @@
           </li>
         </ul>
         <ul class="navbar-nav ms-auto">
-          
+        <!-- <li class="nav-item dropdown">
+            <a class="nav-link count-indicator" id="notificationDropdown" href="#" data-bs-toggle="dropdown">
+              <i class="icon-mail icon-lg"></i>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list pb-0" aria-labelledby="notificationDropdown">
+              <a class="dropdown-item py-3 border-bottom">
+                <p class="mb-0 font-weight-medium float-left">You have 4 new notifications </p>
+                <span class="badge badge-pill badge-primary float-right">View all</span>
+              </a>
+              <a class="dropdown-item py-3 border-bottom">
+                <p class="mb-0 font-weight-medium float-left">You have 4 new notifications </p>
+                <span class="badge badge-pill badge-primary float-right">View all</span>
+              </a>
+              <a class="dropdown-item py-3 border-bottom">
+                <p class="mb-0 font-weight-medium float-left">You have 4 new notifications </p>
+                <span class="badge badge-pill badge-primary float-right">View all</span>
+              </a>
+              <a class="dropdown-item py-3 border-bottom">
+                <p class="mb-0 font-weight-medium float-left">You have 4 new notifications </p>
+                <span class="badge badge-pill badge-primary float-right">View all</span>
+              </a>
+            </div>
+          </li> -->
           <li class="nav-item dropdown d-none d-lg-block user-dropdown">
             <a class="nav-link" id="UserDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
               <img class="img-xs rounded-circle" src="images/faces/face.jpg" alt="Profile image"> </a>
@@ -389,13 +411,13 @@
                             <p class="statistics-title">Total Investment</p>
                             <h3 class="rate-percentage">
                             <?php 
-                                    $con = mysqli_connect("localhost","root","","my_db");
+                                    require_once "db.php";
                                     $query = "SELECT sum(total) FROM invsm where email='$mail' group by symbol";
                                     $query2 = "SELECT sum(total) FROM invmf where email='$mail' group by symbol";
                                     $query1 = "SELECT Amount FROM invfd where email='$mail' group by name";
-                                    $query_run = mysqli_query($con, $query);
-                                    $query_run1 = mysqli_query($con, $query1);
-                                    $query_run2 = mysqli_query($con, $query2);
+                                    $query_run = mysqli_query($conn, $query);
+                                    $query_run1 = mysqli_query($conn, $query1);
+                                    $query_run2 = mysqli_query($conn, $query2);
                                     $inv=0;
                                     if(mysqli_num_rows($query_run) != 0)
                                     {
@@ -420,6 +442,120 @@
                                     }
 
                                             ?><?= $inv?>
+                            </h3>
+                            <p class="text-danger d-flex"><i class="mdi mdi-menu-down"></i><span>-0.5%</span></p>
+                          </div>
+                          <div>
+                            <p class="statistics-title">Current Value</p>
+                            <h3 class="rate-percentage">
+                            <?php 
+                                    require_once "db.php";
+                                    $query = "SELECT sum(profit) FROM profitsm where email='$mail' group by symbol";
+                                    $query2 = "SELECT sum(profit) FROM profitmf where email='$mail' group by symbol";
+                                    $query1 = "SELECT profit FROM profitfd where email='$mail' group by symbol";
+                                    $query_run = mysqli_query($conn, $query);
+                                    $query_run1 = mysqli_query($conn, $query1);
+                                    $query_run2 = mysqli_query($conn, $query2);
+                                    $ret=0;
+                                    if(mysqli_num_rows($query_run) != 0)
+                                    {
+                                        foreach($query_run as $items)
+                                        {
+                                            $ret=$ret+$items['sum(profit)'];
+                                        }
+                                    }
+                                    if(mysqli_num_rows($query_run1) != 0)
+                                    {
+                                        foreach($query_run1 as $items)
+                                        {
+                                            $ret=$ret+$items['profit'];
+                                        }
+                                    }
+                                    if(mysqli_num_rows($query_run2) != 0)
+                                    {
+                                        foreach($query_run2 as $items)
+                                        {
+                                            $ret=$ret+$items['sum(profit)'];
+                                        }
+                                    }
+
+                                            ?><?= $inv+$ret?>
+                            </h3>
+                            <p class="text-danger d-flex"><i class="mdi mdi-menu-down"></i><span>-0.5%</span></p>
+                          </div>
+                          <div>
+                            <p class="statistics-title">Returns</p>
+                            <h3 class="rate-percentage">
+                            <?php 
+                                    // require_once "db.php";
+                                    // $query = "SELECT sum(total) FROM invsm where email='$mail' group by symbol";
+                                    // $query2 = "SELECT sum(total) FROM invmf where email='$mail' group by symbol";
+                                    // $query1 = "SELECT Amount FROM invfd where email='$mail' group by name";
+                                    // $query_run = mysqli_query($conn, $query);
+                                    // $query_run1 = mysqli_query($conn, $query1);
+                                    // $query_run2 = mysqli_query($conn, $query2);
+                                    // $inv=0;
+                                    // if(mysqli_num_rows($query_run) != 0)
+                                    // {
+                                    //     foreach($query_run as $items)
+                                    //     {
+                                    //         $inv=$inv+$items['sum(total)'];
+                                    //     }
+                                    // }
+                                    // if(mysqli_num_rows($query_run1) != 0)
+                                    // {
+                                    //     foreach($query_run1 as $items)
+                                    //     {
+                                    //         $inv=$inv+$items['Amount'];
+                                    //     }
+                                    // }
+                                    // if(mysqli_num_rows($query_run2) != 0)
+                                    // {
+                                    //     foreach($query_run2 as $items)
+                                    //     {
+                                    //         $inv=$inv+$items['sum(total)'];
+                                    //     }
+                                    // }
+
+                                            ?><?= $ret?>
+                            </h3>
+                            <p class="text-danger d-flex"><i class="mdi mdi-menu-down"></i><span>-0.5%</span></p>
+                          </div>
+                          <div>
+                            <p class="statistics-title">Returns Percentage</p>
+                            <h3 class="rate-percentage">
+                            <?php 
+                                    // require_once "db.php";
+                                    // $query = "SELECT sum(total) FROM invsm where email='$mail' group by symbol";
+                                    // $query2 = "SELECT sum(total) FROM invmf where email='$mail' group by symbol";
+                                    // $query1 = "SELECT Amount FROM invfd where email='$mail' group by name";
+                                    // $query_run = mysqli_query($conn, $query);
+                                    // $query_run1 = mysqli_query($conn, $query1);
+                                    // $query_run2 = mysqli_query($conn, $query2);
+                                    // $inv=0;
+                                    // if(mysqli_num_rows($query_run) != 0)
+                                    // {
+                                    //     foreach($query_run as $items)
+                                    //     {
+                                    //         $inv=$inv+$items['sum(total)'];
+                                    //     }
+                                    // }
+                                    // if(mysqli_num_rows($query_run1) != 0)
+                                    // {
+                                    //     foreach($query_run1 as $items)
+                                    //     {
+                                    //         $inv=$inv+$items['Amount'];
+                                    //     }
+                                    // }
+                                    // if(mysqli_num_rows($query_run2) != 0)
+                                    // {
+                                    //     foreach($query_run2 as $items)
+                                    //     {
+                                    //         $inv=$inv+$items['sum(total)'];
+                                    //     }
+                                    // }
+
+                                            ?><?= round(($ret/($inv+$ret))*100),"%"?>
                             </h3>
                             <p class="text-danger d-flex"><i class="mdi mdi-menu-down"></i><span>-0.5%</span></p>
                           </div>

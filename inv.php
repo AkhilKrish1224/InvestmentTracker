@@ -10,7 +10,7 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Investment </title>
+  <title>GoGain</title>
   <!-- plugins:css -->
   <link rel="stylesheet" href="vendors/feather/feather.css">
   <link rel="stylesheet" href="vendors/mdi/css/materialdesignicons.min.css">
@@ -44,10 +44,10 @@
           </button>
         </div>
         <div>
-          <a class="navbar-brand brand-logo" href="test.html">
+          <a class="navbar-brand brand-logo" href="index.php">
             <img src="images/logo.png" alt="logo" />
           </a>
-          <a class="navbar-brand brand-logo-mini" href="test.html">
+          <a class="navbar-brand brand-logo-mini" href="index.php">
             <img src="images/logo.png" alt="logo" />
           </a>
         </div>
@@ -314,6 +314,8 @@
                                         $count=0;
                                         foreach($query_run as $items)
                                         {
+                                          $pro=0;
+                                          $sym=$items['symbol'];
                                             ?>
                                             <tr>
                                                 <td ><?= $items['name']; ?></td>
@@ -321,26 +323,43 @@
                                                 <td id=<?= $items['symbol']; ?>></td>
                                                 <td id=<?= $count; ?> ></td>
                                                 <!-- <i class="ti-arrow-down"></i> -->
-                                                <script>
-                                                    var settings={}
-                                                    settings = {
-                                                    async: true,
-                                                    crossDomain: true,
-                                                    url: 'https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/v2/get-summary?symbol=<?= $items['symbol']; ?>&region=IN',
-                                                    method: 'GET',
-                                                    headers: {
-                                                        'X-RapidAPI-Key': '798fc30723msh5168c91e48371f2p14bedbjsn2135ef823872',
-                                                        'X-RapidAPI-Host': 'apidojo-yahoo-finance-v1.p.rapidapi.com'
+                                                <?php
+
+                                                    $curl = curl_init();
+
+                                                    curl_setopt_array($curl, [
+                                                        CURLOPT_URL => "https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/v2/get-summary?symbol=$sym&region=IN",
+                                                        CURLOPT_RETURNTRANSFER => true,
+                                                        CURLOPT_ENCODING => "",
+                                                        CURLOPT_MAXREDIRS => 10,
+                                                        CURLOPT_TIMEOUT => 30,
+                                                        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                                                        CURLOPT_CUSTOMREQUEST => "GET",
+                                                        CURLOPT_HTTPHEADER => [
+                                                            "X-RapidAPI-Host: apidojo-yahoo-finance-v1.p.rapidapi.com",
+                                                            "X-RapidAPI-Key: 2832c7af44msh18796da08ad90bbp1be472jsn09377fd1d02d"
+                                                        ],
+                                                    ]);
+
+                                                    $response = curl_exec($curl);
+                                                    $err = curl_error($curl);
+
+                                                    curl_close($curl);
+
+                                                    if ($err) {
+                                                        echo "cURL Error #:" . $err;
+                                                    } else {
+                                                        $test = json_decode($response, TRUE);
+                                                        $price=$test["price"]["regularMarketPrice"]["raw"];
+                                                        $total=$price*$items['sum(quantity)'];
+                                                        $profit=$total-$items['sum(total)'];
                                                     }
-                                                    };
-                                                                
-                                                    $.ajax(settings).done(function (response) {
-                                                        console.log(response.price.regularMarketPrice.raw);
-                                                        console.log(response);
-                                                        const x = document.getElementById("<?= $items['symbol']; ?>");
-                                                        x.innerHTML = response.price.regularMarketPrice.raw*"<?= $items['sum(quantity)']; ?>";
-                                                        const y = document.getElementById("<?= $count; ?>");
-                                                        var z=(response.price.regularMarketPrice.raw*"<?= $items['sum(quantity)']; ?>"-"<?= $items['sum(total)']; ?>").toFixed(1);
+                                                    ?>
+                                                    <script>
+                                                        var x = document.getElementById("<?= $items['symbol']; ?>");
+                                                        x.innerHTML = "<?= $total; ?>";
+                                                        var y = document.getElementById("<?= $count; ?>");
+                                                        var z=("<?= $profit; ?>");
                                                         if(z>0)
                                                         {
                                                             y.className = 'text-success';
@@ -351,10 +370,11 @@
                                                             y.className ='text-danger';
                                                             y.innerHTML = z+" <i class='ti-arrow-down'></i>";
                                                         }
-
-                                                        // document.write(response.price.regularMarketPrice.raw);
-                                                    }); 
-                                                </script>
+                                                    </script>
+                                                <?php
+                                                          require_once "db.php";
+                                                          mysqli_query($conn,"replace into profitsm values('$mail','$sym','$profit')");
+                                                ?>
                                                 <!-- <td><input type="text" id="name4" name="name4" value=""></td>
                                                 <td><input type="text" id="datepicker" name="name5" value="" required pattern="\d{4}"></td>
                                                 <td><input type="submit" name="submit" value="add"></td> -->
@@ -368,6 +388,8 @@
                                         $count=200;
                                         foreach($query_run2 as $items)
                                         {
+                                            $pro=0;
+                                            $sym=$items['symbol'];
                                             ?>
                                             <tr>
                                                 <td ><?= $items['name']; ?></td>
@@ -375,26 +397,43 @@
                                                 <td id=<?= $items['symbol']; ?>></td>
                                                 <td id=<?= $count; ?> ></td>
                                                 <!-- <i class="ti-arrow-down"></i> -->
-                                                <script>
-                                                    var settings={}
-                                                    settings = {
-                                                    async: true,
-                                                    crossDomain: true,
-                                                    url: 'https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/v2/get-summary?symbol=<?= $items['symbol']; ?>&region=IN',
-                                                    method: 'GET',
-                                                    headers: {
-                                                        'X-RapidAPI-Key': '798fc30723msh5168c91e48371f2p14bedbjsn2135ef823872',
-                                                        'X-RapidAPI-Host': 'apidojo-yahoo-finance-v1.p.rapidapi.com'
+                                                <?php
+
+                                                    $curl = curl_init();
+
+                                                    curl_setopt_array($curl, [
+                                                        CURLOPT_URL => "https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/v2/get-summary?symbol=$sym&region=IN",
+                                                        CURLOPT_RETURNTRANSFER => true,
+                                                        CURLOPT_ENCODING => "",
+                                                        CURLOPT_MAXREDIRS => 10,
+                                                        CURLOPT_TIMEOUT => 30,
+                                                        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                                                        CURLOPT_CUSTOMREQUEST => "GET",
+                                                        CURLOPT_HTTPHEADER => [
+                                                            "X-RapidAPI-Host: apidojo-yahoo-finance-v1.p.rapidapi.com",
+                                                            "X-RapidAPI-Key: 2832c7af44msh18796da08ad90bbp1be472jsn09377fd1d02d"
+                                                        ],
+                                                    ]);
+
+                                                    $response = curl_exec($curl);
+                                                    $err = curl_error($curl);
+
+                                                    curl_close($curl);
+
+                                                    if ($err) {
+                                                        echo "cURL Error #:" . $err;
+                                                    } else {
+                                                        $test = json_decode($response, TRUE);
+                                                        $price=$test["price"]["regularMarketPrice"]["raw"];
+                                                        $total=$price*$items['sum(quantity)'];
+                                                        $profit=$total-$items['sum(total)'];
                                                     }
-                                                    };
-                                                                
-                                                    $.ajax(settings).done(function (response) {
-                                                        console.log(response.price.regularMarketPrice.raw);
-                                                        console.log(response);
-                                                        const x = document.getElementById("<?= $items['symbol']; ?>");
-                                                        x.innerHTML = response.price.regularMarketPrice.raw*"<?= $items['sum(quantity)']; ?>";
-                                                        const y = document.getElementById("<?= $count; ?>");
-                                                        var z=(response.price.regularMarketPrice.raw*"<?= $items['sum(quantity)']; ?>"-"<?= $items['sum(total)']; ?>").toFixed(1);
+                                                    ?>
+                                                    <script>
+                                                        var x = document.getElementById("<?= $items['symbol']; ?>");
+                                                        x.innerHTML = "<?= $total; ?>";
+                                                        var y = document.getElementById("<?= $count; ?>");
+                                                        var z=("<?= $profit; ?>");
                                                         if(z>0)
                                                         {
                                                             y.className = 'text-success';
@@ -405,10 +444,11 @@
                                                             y.className ='text-danger';
                                                             y.innerHTML = z+" <i class='ti-arrow-down'></i>";
                                                         }
-
-                                                        // document.write(response.price.regularMarketPrice.raw);
-                                                    }); 
-                                                </script>
+                                                    </script>
+                                                <?php
+                                                          require_once "db.php";
+                                                          mysqli_query($conn,"replace into profitmf values('$mail','$sym','$profit')");
+                                                ?>
                                                 <!-- <td><input type="text" id="name4" name="name4" value=""></td>
                                                 <td><input type="text" id="datepicker" name="name5" value="" required pattern="\d{4}"></td>
                                                 <td><input type="submit" name="submit" value="add"></td> -->
@@ -422,15 +462,19 @@
                                             $count1=100;
                                             foreach($query_run1 as $items)
                                             {
+                                                $sym=$items['name'];
                                                 ?>
                                                 <tr>
                                                     <td ><?= $items['name']; ?></td>
                                                     <td ><?= $items['sum(Amount)']; ?></td>
                                                     <td ><?= $items['sum(Total)']; ?></td>
                                                     <td id=<?= $count1; ?> ></td>
+                                                    <?php
+                                                        $profit=$items['sum(Total)']-$items['sum(Amount)'];
+                                                    ?>
                                                     <script>
                                                         const a=document.getElementById("<?= $count1; ?>");
-                                                        var b=("<?= $items['sum(Total)']; ?>"-"<?= $items['sum(Amount)']; ?>").toFixed(1);
+                                                        var b=("<?= $profit; ?>");
                                                         if(b>0)
                                                         {
                                                             a.className = 'text-success';
@@ -442,6 +486,10 @@
                                                             a.innerHTML = b+" <i class='ti-arrow-down'></i>";
                                                         }
                                                     </script>
+                                                    <?php
+                                                          require_once "db.php";
+                                                          mysqli_query($conn,"replace into profitfd values('$mail','$sym','$profit')");
+                                                    ?>
                                                     <!-- <td><input type="text" id="name32" name="name32" value=""></td>
                                                     <td><input type="text" id="name4" name="name42" value=""></td>
                                                     <td><input type="text" id="datepicker" name="name52" value="" required pattern="\d{4}"></td>

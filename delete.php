@@ -10,7 +10,7 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Investment </title>
+  <title>GoGain</title>
   <!-- plugins:css -->
   <link rel="stylesheet" href="vendors/feather/feather.css">
   <link rel="stylesheet" href="vendors/mdi/css/materialdesignicons.min.css">
@@ -44,10 +44,10 @@
           </button>
         </div>
         <div>
-          <a class="navbar-brand brand-logo" href="test.html">
+          <a class="navbar-brand brand-logo" href="index.php">
             <img src="images/logo.png" alt="logo" />
           </a>
-          <a class="navbar-brand brand-logo-mini" href="test.html">
+          <a class="navbar-brand brand-logo-mini" href="index.php">
             <img src="images/logo.png" alt="logo" />
           </a>
         </div>
